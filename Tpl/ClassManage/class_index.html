@@ -1,0 +1,239 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>班级管理页面</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+    <link href="__PUBLIC__/demo.css" rel="stylesheet" type="text/css" />
+
+    <script src="__PUBLIC__/jquery.min.js" type="text/javascript"></script> 
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/easyUI/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/easyUI/themes/icon.css">
+    <script type="text/javascript" src="__PUBLIC__/easyUI/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/easyUI/locale/easyui-lang-zh_CN.js"></script>
+    <script src="__PUBLIC__/jquery.json-2.4.js" type="text/javascript"></script> 
+    <script src="__PUBLIC__/tools.js" type="text/javascript"></script>  
+    
+    <style type="text/css">
+        html,html body
+        {
+            font-family:宋体;
+            font-size:13px;
+        }
+        h2
+        {
+            font-family: "Trebuchet MS",Arial,sans-serif;
+        }
+        p
+        {
+            line-height:22px;
+        }
+    </style>
+</head>
+<body >
+    <div class = "caption">
+    <h2>班级管理</h2>
+    <p>对学生班级进行管理，一般由系统管理者进行该操作</p>
+    </div>
+
+    <br />
+    <div id="tb">
+        <a href="#" class="easyui-linkbutton" iconCls="icon-reload" plain="true" onclick="refresh_grid()">刷新</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="insert()">增加</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteRows()">删除</a>
+        <!-- <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="test()">测试</a>         -->
+    </div>
+    <table id = "grid1"></table>
+
+    <script type="text/javascript">
+
+    var toolbar = $('#tb');
+    var grid1 = $('#grid1');
+
+    $(function(){
+            $('#grid1').datagrid({
+                title:'班级列表',
+                iconCls:'icon-edit',
+                width:'auto',
+                height:'auto',
+                fitColumns:true,
+                singleSelect:true,
+                idField:'class_id',
+                toolbar: '#tb',
+                url:'__URL__/class_list',
+                columns:[[
+                    {field:'class_id',title:'编码',width:60,
+                        editor:{
+                            type:'text',
+                            options:{
+                                required:true
+                            }
+                        }
+                    },
+
+                    {field:'class_name',title:'班级名称',width:80,align:'center',editor:{type:'text',options:{required:true}}},
+                    {field:'create_time',title:'创建时间',width:80,align:'center'},
+                    {field:'note',title:'说明',width:180,editor:'text'},
+                    {field:'action',title:'',width:50,align:'center',
+                        formatter:function(value,row,index){
+                            if (row.editing){
+                                var s = '<a href="#" onclick="saverow(this)">保存</a> ';
+                                var c = '<a href="#" onclick="cancelrow(this)">取消</a>';
+                                return s+c;
+                            } else {
+                                var e = '<a href="#" onclick="editrow(this)">编辑</a> ';
+                                return e;
+                            }
+                        }
+                    }
+                ]],
+                onBeforeEdit:function(index,row){
+                    row.editing = true;
+                    updateActions(index);
+                },
+                onAfterEdit:function(index,row){
+                    row.editing = false;
+                    updateActions(index);
+                },
+                onCancelEdit:function(index,row){
+                    row.editing = false;
+                    updateActions(index);
+                }
+            });
+        });
+
+    function updateActions(index){
+        grid1.datagrid('updateRow',{
+            index: index,
+            row:{}
+        });
+    }
+    function getRowIndex(target){
+        var tr = $(target).closest('tr.datagrid-row');
+        return parseInt(tr.attr('datagrid-row-index'));
+    }
+    function editrow(target){
+        grid1.datagrid('beginEdit', getRowIndex(target));
+    }
+
+    function saverow(target)
+    {
+        var index = getRowIndex(target);
+        grid1.datagrid('endEdit', index);
+        var rows = grid1.datagrid('getRows');
+        var row = rows[index];
+        if(row.class_id == undefined || row.class_id == '' || row.class_name == undefined || row.class_name == ''){
+            $.messager.alert('提示','班级编码和名称是必须填写的！','info');
+            grid1.datagrid('beginEdit', index);
+            return;
+        }
+        else{
+            var json = $.toJSON(row);
+            $.ajax({
+                url: "__URL__/add_class",
+                data: { data: json },
+                type: "post",
+                success: function (text) {
+                    // alert(text);
+                    if(text == "ok")
+                    {
+                        $.messager.alert('提示','操作成功！');               
+                    }
+                    else
+                    {
+                        $.messager.alert('提示','操作出现异常！', 'warning');             
+                    }
+                    refresh_grid();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.responseText);
+                }
+            });
+            refresh_grid();
+        }
+    }
+    function cancelrow(target){
+        refresh_grid();
+    }
+    function refresh_grid()
+    {
+        grid1.datagrid('reload');
+    }        
+    function insert(){
+        var row = grid1.datagrid('getSelected');
+        if (row){
+            var index = grid1.datagrid('getRowIndex', row);
+        } else {
+            index = 0;
+        }
+        if(index < 0) index = 0;
+        grid1.datagrid('insertRow', {
+            index: index,
+            row:{
+                // status:'P'
+            }
+        });
+        grid1.datagrid('selectRow',index);
+        grid1.datagrid('beginEdit',index);
+    }
+
+    function deleteRows()
+    {
+        $.messager.confirm('确认','删除班级将会删除班级下的所有学生以及相关数据，确定删除吗？',function(r){
+            if (r){
+                var rows = grid1.datagrid('getSelections');
+                var json = $.toJSON(rows);
+                $.ajax({
+                    url: "__URL__/remove_class",
+                    data: { data: json },
+                    type: "post",
+                    success: function (text) {
+                        if(text == "ok")
+                        {
+                            $.messager.alert('提示','操作成功！','info');
+                        }
+                        else
+                        {
+                            $.messager.alert('提示','操作出现异常！','info');
+                        }
+                        refresh_grid();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(jqXHR.responseText);
+                        refresh_grid();
+                    }
+                });                
+                refresh_grid();
+            }
+        });     
+    }    
+
+    // function deleterow(target){
+    //     $.messager.confirm('Confirm','Are you sure?',function(r){
+    //         if (r){
+    //             grid1.datagrid('deleteRow', getRowIndex(target));
+    //         }
+    //     });
+    // }    
+    function test() {
+        var json = '{"key":"a","value":"b"}';
+        $.ajax({
+            url: "__URL__/add_class",
+            data: { data: json },
+            type: "post",
+            success: function (text) {
+                alert(text);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(jqXHR.responseText);
+            }
+        });
+    }
+     
+        
+   
+    </script>
+    <div class="description">
+        <h3>说明</h3>
+    </div>
+</body>
+</html>

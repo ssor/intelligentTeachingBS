@@ -1,0 +1,99 @@
+<!DOCTYPE html>  
+<html>  
+<head>  
+    <meta charset="UTF-8">  
+    <title>互动教学管理信息系统</title>  
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+    <link href="__PUBLIC__/demo.css" rel="stylesheet" type="text/css" />
+
+    <script src="__PUBLIC__/jquery.min.js" type="text/javascript"></script> 
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/easyUI/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/easyUI/themes/icon.css">
+    <script type="text/javascript" src="__PUBLIC__/easyUI/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/easyUI/locale/easyui-lang-zh_CN.js"></script>
+    <script src="__PUBLIC__/jquery.json-2.4.js" type="text/javascript"></script> 
+    <script src="__PUBLIC__/tools.js" type="text/javascript"></script>  
+</head>  
+<body> 
+    <div class = "caption">
+    <h2>修改个人信息</h2>
+    <p>管理学生信息</p>
+    </div>
+
+    <div style="margin:10px 0;"></div>  
+        <div style="margin-bottom:10px;">
+            姓名：<input class="easyui-validatebox" style = "margin-left:10px;width:130px;" type="text" id = "username" name="name" data-options="required:true" value = "{$name}"></input>
+        </div>
+        <div style="margin-bottom:10px;">
+            <label style="margin-right:5px;">性别：</label>
+<!-- <select class="easyui-combobox" name="sex"  style = "margin-left:10px;width:130px;"><option value="0">帅哥</option><option value="1">美女</option></select> -->
+          <input id ="sexes" class="easyui-combobox"name="sex"data-options="
+                          data:sexes,  
+                          valueField:'id',  
+                          textField:'text',  
+                          panelHeight:'auto',
+                          editable:false,
+                          onLoadSuccess:combo_set_default  
+            " style = "margin-left:10px;width:130px;">  
+        </div>
+        <div style="margin-bottom:10px;">
+年龄：<input class="easyui-numberbox" type="text" id ="age" data-options="required:true"  style = "margin-left:10px;width:130px;" value = "{$age}"></input>
+        </div>
+        <div style="margin-bottom:10px;">
+Email:<input class="easyui-validatebox" type="text" id ="email" data-options="required:true,validType:'email'"  style = "margin-left:10px;width:130px;" value="{$email}"></input>
+        </div>
+        <div style="text-align:left;padding:5px;margin-top:20px;">  
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" style="margin-left:20px;">确定</a>  
+            <!-- <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()"  style="margin-left:10px;">清空</a>   -->
+        </div>  
+    <script>  
+    var sexes     = {$sexes};
+    var sex_value = {$sex_value};
+        function combo_set_default()
+        {
+            var obj = $("#sexes");
+            var classes = obj.combobox('getData');
+            if(classes.length > 0){
+              obj.combobox('setValue', sex_value);
+            }          
+        }
+
+        function submitForm(){  
+            var age = $("#age");
+            var email = $("#email");
+            var user_name = $("#username");
+            var combo_sexes = $("#sexes");
+
+            //提交数据
+            var data = new Object;
+            data.age = age[0].value;
+            data.user_name = user_name[0].value;
+            data.email = email[0].value;
+            data.sex = combo_sexes.combobox('getValue');
+    
+            var json = $.toJSON(data);
+            // alert(json);  
+            $.ajax({
+                url: "__URL__/update_basic_info/user_id/{$user_id}",
+                type: "post",
+                data: { data: json },
+                success: function (text) {
+                    // r = $.evalJSON(text);
+                    if(text == "ok")
+                    {
+                        $.messager.alert('提示','信息更新成功！','info');
+                    }
+                    else
+                    {
+                        $.messager.alert('提示', '信息更新失败！','info');
+                    }
+                    // alert("提交成功，返回结果:" + text);
+                }
+            });            
+        }  
+        function clearForm(){  
+            $('#ff').form('clear');  
+        }  
+    </script>  
+</body>  
+</html>  

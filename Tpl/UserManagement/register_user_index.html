@@ -1,0 +1,242 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>注册互动教学管理信息系统</title>
+<link rel="stylesheet" href="__PUBLIC__/960.css" />
+    <script src="__PUBLIC__/jquery.min.js" type="text/javascript"></script> 
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/easyUI/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/easyUI/themes/icon.css">
+    <script type="text/javascript" src="__PUBLIC__/easyUI/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/easyUI/locale/easyui-lang-zh_CN.js"></script>
+    <script src="__PUBLIC__/jquery.json-2.4.js" type="text/javascript"></script> 
+    <script src="__PUBLIC__/tools.js" type="text/javascript"></script>  
+
+</head>
+<body>
+<h1>
+</h1>
+<div class="container_12">
+<!--   <h2>
+    12 Column Grid
+  </h2> -->
+    <div class="grid_12" style = "height:20px;"></div>
+    <div class="clear"></div>
+
+  <div class="grid_6" style = "background-color:rgb(38,114,236);">
+        <div class="grid_5 alpha">
+            <image src = "__PUBLIC__/Image/Security.jpg" style="border:0px;margin:0px;">
+        </div>
+        <div class="grid_5 omega" >
+          <div style="height:120px;color:white;">
+            <h1>互动教学管理信息系统</h1>
+            <p>注册用户，让教学充满乐趣</p>
+          </div>
+
+        </div>        
+  </div>
+    
+  <div class="grid_5 prefix_1">
+        <div class="grid_5 alpha">
+            <p style = "font-size:38px;">注册</p>
+        </div>
+        <div class="clear"></div>
+      <div class="grid_5">
+          <p style = "margin-left:0px;">
+            <input id="user_id" maxlength="113" class = "grid_3" value = "学号" style = "height:20px;margin-left:0px;">
+          </p>
+      </div>
+      <div class="grid_5">
+          <p style = "margin-left:0px;">
+            <input id="username" maxlength="113" class = "grid_3" value = "姓名" style = "height:20px;margin-left:0px;">
+          </p>
+      </div>      
+      <div class="grid_5">
+          <p>
+            <input type="password" id="password" value = "密码密码密码密码" class = "grid_3" style = "height:20px;margin-left:0px;">
+          </p>
+      </div>
+
+      <div class="grid_5"  style= "margin-top:10px;">
+          <label  style= "font-size:13px;">再次输入密码</label>
+          <br>
+          <p style= "margin-top:5px;">
+            <input type="password" id="password2" value = "密码密码密码密码" class = "grid_3" style = "height:20px;margin-left:0px;">
+          </p>
+      </div>
+      <div class="grid_5" style= "margin-top:10px;">
+          <label style= "font-size:13px;">选择班级</label>
+          <br>
+          <p style= "margin-top:0px;">
+<!--             <input id ="classes" property="editor" class="mini-combobox " style = "width:225px;margin-left:0px;" url="../ClassManage/class_list" textField="class_name" valueField="class_id"/> -->
+          <input id ="classes" class="easyui-combobox"name="language"data-options="
+                          url:'../ClassManage/class_list',  
+                          valueField:'class_id',  
+                          textField:'class_name',  
+                          panelHeight:'auto',
+                          editable:false,
+                          onLoadSuccess:combo_set_default  
+            " style = "width:225px;margin-left:0px;">  
+
+          </p>
+      </div>
+      <div class="grid_5">
+          <p>
+            <input type="button" onclick="submitForm()" value="注册" class="grid_1" style = "background-color:rgb(38, 114, 236);color:#fff;margin-left:0px;border-width:0px;padding-top:5px;padding-bottom:5px;padding-left:12px;padding-right:12px;height:24px;" >
+          </p>
+      </div>
+      <div class="grid_5">
+
+      </div>
+
+      <div class="grid_5 omega" >
+      </div>
+
+    <!-- <div class="grid_6"></div> -->
+  </div>
+  <div class="clear" style = "height:50px;"></div>
+  <div class="grid_11" >
+    <div style = "height:1px;background-color:rgb(150,150,150);"></div>
+  </div>
+
+  <div class="clear"></div>
+  <div class="grid_10">
+    <span style="font-size:6px;">©{$company}</span>
+  </div>
+    <div class="grid_1">
+      <a onclick = "aboutABC()" style="font-size:6px;text-decoration: none;color:black;cursor:pointer;">关于</a>
+  </div>
+</div>
+<!-- end .container_12 -->
+<script type="text/javascript">
+        $(document).ready(function(){
+          $("#username").focus(function(){
+            if(this.value == "用户名称")
+            {
+                this.value = "";
+            }
+          });
+          $("#username").blur(function(){
+                if(this.value.length <= 0)
+                {
+                    this.value = "用户名称"
+                }
+          });
+          $("#user_id").focus(function(){
+            if(this.value == "学号")
+            {
+                this.value = "";
+            }
+          });
+          $("#user_id").blur(function(){
+                if(this.value.length <= 0)
+                {
+                    this.value = "学号"
+                }
+          });
+
+          $("#password").focus(function(){
+            if(this.value == "密码密码密码密码")
+            {
+                this.value = "";
+            }
+          });
+
+
+          $("#password").blur(function(){
+                if(this.value.length <= 0)
+                {
+                    this.value = "密码密码密码密码"
+                }
+          });
+
+          $("#password2").focus(function(){
+            if(this.value == "密码密码密码密码")
+            {
+                this.value = "";
+            }
+          });
+
+
+          $("#password2").blur(function(){
+                if(this.value.length <= 0)
+                {
+                    this.value = "密码密码密码密码"
+                }
+          });
+        });
+
+        function combo_set_default()
+        {
+            var obj = $("#classes");
+            var classes = obj.combobox('getData');
+            if(classes.length > 0){
+              obj.combobox('setValue', classes[0].class_id);
+            }          
+        }
+        function submitForm() {
+            var new_psw1 = $("#password");
+            var new_psw2 = $("#password2");
+            var user_name = $("#username");
+            var user_id = $("#user_id");
+            var combo_class = $("#classes");
+
+            //提交数据
+            var data = new Object;
+            data.new_psw1 = new_psw1[0].value;
+            data.new_psw2 = new_psw2[0].value;
+            data.user_name = user_name[0].value;
+            data.user_id = user_id[0].value;
+            data.class_id = combo_class.combobox('getValue');
+
+            // return;
+            if(data.user_id == null || data.user_id.length <=0)
+            {
+                $.messager.alert('提示','请输入学号！','info');
+                return;                
+            }            
+            if(data.user_name == null || data.user_name.length <=0)
+            {
+                $.messager.alert('提示','请输入用户名！','info');
+                return;                
+            }
+            if(data.new_psw2 != data.new_psw1)
+            {
+                $.messager.alert('提示','两次输入的新密码不一致！','info');
+                return;
+            }      
+            var json = $.toJSON(data);
+            // alert(json);  
+            $.ajax({
+                url: "__URL__/register_user",
+                type: "post",
+                data: { data: json },
+                success: function (text) {
+                    r = $.evalJSON(text);
+                    if(r.status == "ok")
+                    {
+                        $.messager.alert('提示','注册成功！正在转向登录页面','info');
+                        setTimeout("redirect_to_main_form()",1000);
+                    }
+                    else
+                    {
+                        $.messager.alert('提示', r.text,'info');
+                    }
+                    // alert("提交成功，返回结果:" + text);
+                }
+            });
+        }
+        function aboutABC()
+        {
+            var text = "ABC成本分析系统，版本：{$version}";
+            $.messager.alert('关于',text,'info');
+
+        }
+        function redirect_to_main_form()
+        {
+            top.location.href = get_host_url() + "/Welcome/welcome";
+        }
+    </script>
+</body>
+</html>

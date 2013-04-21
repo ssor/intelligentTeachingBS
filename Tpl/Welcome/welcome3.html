@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="ZH-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>登录ABC成本分析系统</title>
+
+<link rel="stylesheet" title="R3CSS" type="text/css" href="__PUBLIC__/login/R3WinLive2052.css">
+<script src="__PUBLIC__/boot.js" type="text/javascript"></script> 
+<script src="__PUBLIC__/jquery-1.6.2.min.js" type="text/javascript"></script> 
+
+</head>
+<body  uitheme="Web">
+<div style="height: 40px; "></div>
+<div id="shellTD" class="centerParent" style="width: 100%; ">
+	<div id="shellTBL" class="center" style="width: 935px; ">
+		<div class="centerParent">
+			<div id="mainTD" class="center" style="width: 895px; ">
+				<div id="brandModeTD" class="floatLeft" style="width: 475px; ">
+					<div id="productTD" style="width: 475px; ">
+						<iframe id="i0278" height="490px" width="475px" frameborder="0" marginheight="0px" marginwidth="0px" scrolling="no" src="__URL__/product">
+						</iframe>
+					</div>
+				</div>
+					<div id="signInTD" class="floatLeft" style="width: 420px; position: relative; ">
+						<div style="height: 40px; "></div>
+						<div id="i0272" class="signInHeader"><h1 class="loginhead">登录</h1></div>
+						<div style="height: 30px; "></div>
+						<div class="floatLeft" style="width: 100px; height: 370px; "></div>
+						<div class="floatLeft" style="width: 320px; ">
+							<div id="rightTD">
+								<form novalidate="" method="POST" target="_top" name="f1">
+									<div class="section">
+										<div style="display: none; " id="idTd_Tile_Error" aria-live="assertive" aria-relevant="text" aria-atomic="true">
+											<div class="errorDiv first" id="idTd_Tile_ErrorMsg_Login"></div>
+										</div>
+										<div style="display: none; " id="idTd_PWD_Error" aria-live="assertive" aria-relevant="text" aria-atomic="true">
+											<div class="errorDiv first" id="idTd_PWD_ErrorMsg_Username">Generic Password Error Message</div>
+										</div>
+										<div id="idTd_PWD_UsernameLbl" class="row label">
+                                            <span id="idLbl_PWD_Username" role="heading"> 
+                                                <!-- <a id="idA_MSAccLearnMore" href="" target="_blank">注册帐户</a> -->
+                                            </span>
+										</div>
+										<div id="idDiv_PWD_UsernameTb" class="row textbox">
+											<div style="position: relative; width: 100%; ">
+												<input type="email" name="login" id="username" maxlength="113" lang="en" class="ltr_override" aria-labelledby="idLbl_PWD_Username"  value = "用户名称">
+												<div class="phholder" style="position: absolute; top: 0px; left: 0px; z-index: 5; width: 100%; ">
+													<!-- <div id="idDiv_PWD_UsernameExample" class="placeholder ltr_override" aria-hidden="true" style="cursor: text; ">someone@example.com</div> -->
+												</div>
+											</div>
+										</div>
+										<div style="display: none; " id="idTd_PWD_Error_Password" aria-live="assertive" aria-relevant="text" aria-atomic="true"><div class="errorDiv" id="idTd_PWD_ErrorMsg_Password"></div>
+										</div>
+										<div id="idDiv_PWD_PasswordTb" class="row textbox">
+											<div style="position: relative; width: 100%; ">
+												<input name="passwd" type="password" id="password" autocomplete="off" aria-labelledby="idDiv_PWD_PasswordExample" value = "密码密码密码密码" >
+											<!-- 	<div class="phholder" style="position: absolute; top: 0px; left: 0px; z-index: 5; width: 100%; ">
+													<div id="idDiv_PWD_PasswordExample" class="placeholder" aria-hidden="true" style="cursor: text; ">密码</div>
+												</div> -->
+										</div>
+										</div>
+										<div id="idTd_PWD_KMSI_Cb">
+                                            <!-- <label></label> -->
+                                            <select id ="systems" style="width:322px;height:35px" >
+                                                <option value="1" selected="selected">仓储系统</option>
+                                                <option value="2">运输系统</option>
+                                                <option value="3">生产系统</option>
+                                            </select>
+                                            <!-- <input type="checkbox" name="KMSI" id="idChkBx_PWD_KMSI0Pwd" value="1"> -->
+                                            <!-- <label for="idChkBx_PWD_KMSI0Pwd" id="idLbl_PWD_KMSI_Cb">使我保持登录状态</label> -->
+										</div>
+									</div>
+									<div id="idTd_PWD_SubmitCancelTbl" class="section"><input type="button" onclick="submitForm()" name="SI" id="idSIButton9" value="登录" class="default"></div>
+									<div class="section">
+										<div id="idDiv_PWD_ForgotPassword" class="row small">
+                                            <!-- <a href="" id="idA_PWD_ForgotPassword">无法访问你的帐户?</a> -->
+										</div>
+										<div id="idTD_PWD_SwitchToOTCLink" class="row small">
+                                            <!-- <a href="" id="idA_PWD_SwitchToOTC">使用一次性代码登录</a> -->
+                                        </div>
+									</div>
+								</form>
+							</div>
+
+						</div>
+						<div id="SignUpTD" class="SignUp signUpFloat">
+							<span>没有帐户?</span> 
+							<a id="idA_SignUp"  class="TextSemiBold" onclick="redirect_register()">这里注册</a>
+						</div>
+					</div>
+			</div>
+		</div>
+		<div style="height: 50px; clear: both; "></div>
+		<div id="footerTD" class="footer centerParent" style="clear: both; ">
+			<div class="center" style="width: 895px; ">
+				<table class="footer" cellpadding="0" cellspacing="0">
+					<tbody>
+						<tr>
+							<td align="left">
+								<table cellpadding="0" cellspacing="0">
+									<tbody>
+										<tr>
+											<td style="text-align: left; "><span id="ftrCopy" class="secondary">©{$company}</span>
+											</td>
+											<td style="text-align: left; "><span></span></td>
+											<td class="footerspace">&nbsp;</td>
+											<td class="footerspace">&nbsp;</td>
+											<!-- <td style="text-align: left; "><a href="" class="footerlink" id="ftrTerms">条款</a></td> -->
+											<td class="footerspace">&nbsp;</td>
+											<td class="footerspace">&nbsp;</td>
+											<!-- <td style="text-align: left; "><a href="" class="footerlink" id="ftrPrivacy">隐私和 Cookie</a></td> -->
+										</tr>
+									</tbody>
+								</table>
+						</td>
+						<td></td>
+							<td align="right">
+								<table cellpadding="0" cellspacing="0">
+									<tbody>
+										<tr>
+											<td style="text-align: right; ">
+												<a href="__URL__/help" target="_blank" class="footerlink" id="ftrHelp">系统说明</a><!-- 在新标签页中打开窗口-->
+											</td>
+											<td class="footerspace">&nbsp;</td>
+											<td class="footerspace">&nbsp;</td>
+											<td style="text-align: right; ">
+												<a  class="footerlink" id="ftrFdbk" onclick = "aboutABC()">关于</a>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</td>
+						</tr></tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+        $(document).ready(function(){
+          $("#username").focus(function(){
+            if(this.value == "用户名称")
+            {
+                this.value = "";
+            }
+          });
+          $("#password").focus(function(){
+            if(this.value == "密码密码密码密码")
+            {
+                this.value = "";
+            }
+          });
+
+          $("#username").blur(function(){
+                if(this.value.length <= 0)
+                {
+                    this.value = "用户名称"
+                }
+          });
+
+          $("#password").blur(function(){
+                if(this.value.length <= 0)
+                {
+                    this.value = "密码密码密码密码"
+                }
+          });
+        });
+        function aboutABC()
+        {
+            var text = "ABC成本分析系统，版本：{$version}";
+            mini.showMessageBox({
+                width: 250,
+                title: "关于",
+                buttons: ["ok"],
+                message: text,
+                iconCls: "mini-messagebox-info",
+                callback: function (action) {
+                }
+            });
+        }
+        function redirect_register()
+        {
+            var patt1=new RegExp("http://[a-zA-Z0-9\\.\:]+/index.php");
+            var crt_href = top.location.href;
+            var r = patt1.exec(crt_href);
+            top.location.href = r[0] + "/UserManagement/register_user_index";
+        }
+       function submitForm() {
+            var password = $("#password");
+            var user_name = $("#username");
+            var system = $("#systems");
+            //提交数据
+            var data = new Object;
+            data.password = password[0].value;
+            data.user_name = user_name[0].value;
+            data.system = system[0].value;
+
+            if(data.user_name == null || data.user_name.length <=0)
+            {
+                mini.alert("请输入用户名！");
+                return;                
+            }
+
+            var json = mini.encode(data);
+            // alert(json);  
+            $.ajax({
+                url: "__URL__/checkLogin",
+                type: "post",
+                data: { data: json },
+                success: function (text) {
+                    r = mini.decode(text);
+                    if(r.status == "ok")
+                    {
+                        // mini.alert("登录成功！正在转向主页面...");
+                        setTimeout("redirect_to_main_form()",2000);
+                        // redirect_to_main_form();
+                    }
+                    else
+                    {
+                        mini.alert(r.text);
+                    }
+                }
+            });
+        }
+        function redirect_to_main_form()
+        {
+            var patt1=new RegExp("http://[a-zA-Z0-9\\.\:]+/index.php");
+            var crt_href = top.location.href;
+            var r = patt1.exec(crt_href);            
+            top.location.href = r[0] + "/Index/index";
+        }
+    </script>
+</body>
+</html>
