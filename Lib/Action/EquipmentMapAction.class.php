@@ -25,6 +25,7 @@ class EquipmentMapAction extends Action
 	}
 	public function insertEquipmentMap()
 	{
+		$flag = true;
 		$class_id = Tools::request('class');
 		$data = Tools::request_json('data');
 		// echo $data; return;

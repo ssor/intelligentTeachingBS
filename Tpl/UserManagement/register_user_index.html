@@ -112,7 +112,7 @@
 <script type="text/javascript">
         $(document).ready(function(){
           $("#username").focus(function(){
-            if(this.value == "用户名称")
+            if(this.value == "姓名")
             {
                 this.value = "";
             }
@@ -120,7 +120,7 @@
           $("#username").blur(function(){
                 if(this.value.length <= 0)
                 {
-                    this.value = "用户名称"
+                    this.value = "姓名"
                 }
           });
           $("#user_id").focus(function(){

@@ -23,6 +23,7 @@ class RoomConfigAction extends Action
 	}
 	public function insertRoomConfig()
 	{
+		$flag = true;
 		$class_id = Tools::request('class');
 		// echo $class_id; return;
 		$data = Tools::request_json('data');

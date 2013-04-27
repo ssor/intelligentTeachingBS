@@ -149,7 +149,23 @@ class UserManagementAction extends Action
         $flag = $this->reset_pwd_default_to_database($json);
         echo $flag ? 'ok':'failed';
 	}
-
+    public function update_epc_bind()
+    {
+        $flag = true;
+        $class_id = Tools::request('class');
+        $data = Tools::request_json('data');
+        if(count($data) > 0){
+            for($i=0; $i < count($data); $i++){
+                $item = $data[$i];
+                $epc = $item['epc'];
+                $id = $item['id_num'];
+                $sql .= "replace into T_STUDENTINFO_LINK_EPC(DEVICEID, STUDENTID) values('$epc', '$id');";
+            }
+            // echo $sql;return;
+            $flag = Tools::executeSql($sql);
+        }
+        echo $flag ? 'ok':'failed';
+    }
 	// public function user_list_unchecked()
 	// {
 	// 	echo $this->user_list_with_para('no');
